@@ -240,20 +240,25 @@ module = sys.modules[__name__]
 def make_test(arch):
     for suffix in ('', 'partial', 'relro'):
         clazz = make_test2(arch, suffix)
-        name  = arch 
+        name  = arch
         if suffix:
-            name += '_'  + suffix
-        clazz.__name__ = name 
+            name += f'_{suffix}'
+        clazz.__name__ = name
         setattr(module, name, clazz)
 
 def make_test2(arch, suffix):
-    class C(Harness,unittest.TestCase):
+
+
+
+    class C(Harness, unittest.TestCase):
         def __init__(self, *a, **kw):
             super(C, self).__init__(*a,**kw)
             self.arch   = arch
-            self.binary = './%s-pwntest' % arch
+            self.binary = f'./{arch}-pwntest'
             if suffix:
-                self.binary += '-' + suffix
+                self.binary += f'-{suffix}'
+
+
     return C
 
 # make_test('i386')

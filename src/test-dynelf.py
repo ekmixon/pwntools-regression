@@ -163,7 +163,7 @@ def test_binary(binary):
 
 def test(arch, mode):
     with context.local(arch=arch):
-        binary = "%s%s%s" % (context.arch,'-pwntest',mode)
+        binary = f"{context.arch}-pwntest{mode}"
         test_binary(binary)
 
 test('i386', '')
